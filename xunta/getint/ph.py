@@ -9,14 +9,14 @@ def format_loc(loc):
         loc = "new york"
     loc =  '"' + loc + '"'
     return loc
-    
+
 def make_search_urls(loc, companies):
     loc = format_loc(loc)
     urls = []
-    search_terms = ['"hiring" ("head of" OR "director" or "manager")' + 
-    ' "data science" site:linkedin.com', 
+    search_terms = ['"hiring" ("head of" OR "director" or "manager")' +
+    ' "data science" site:linkedin.com',
     '"recruiter" "data scientist" site:linkedin.com']
-    
+
     for c in companies:
         for s in search_terms:
             newc = '"' + c + '"'
@@ -25,24 +25,34 @@ def make_search_urls(loc, companies):
             urls.append(url)
     return urls
 
+def find_referral(c):
+	s = '("tsinghua" OR "cornell" OR "fudan") "data scientist" site:linkedin.com'
+	newc = '"' + c + '"'
+	sterm = newc + " " + s
+	url = "https://www.google.com/search?q={}".format(sterm)
+	webbrowser.open_new_tab(url)
+
 
 if __name__ == "__main__":
-    urls = make_search_urls(sys.argv[1:][0], sys.argv[2:])
-    for u in urls:
-        webbrowser.open_new_tab(u)
-        print('start openining all recruiter and data scientist...')
-        res = requests.get(u)
-        if res.status_code == 200:
-            soup = bs4.BeautifulSoup(res.text, 'html.parser')
-            linklist = [link for link in soup.find_all('a')]
-            openlist = []
-            for link in linklist:
-                if "q=https://www.linkedin.com/in" in link.get('href'):
-                    hyperlink = link.get('href').partition('=')[2]
-                    hyperlink = hyperlink.partition('&')[0]
-                    openlist.append(hyperlink)   
-        else:
-            print('request failed')
+	find_referral(sys.argv[1])
+    # urls = make_search_urls(sys.argv[1:][0], sys.argv[2:])
+    # for u in urls:
+    #     webbrowser.open_new_tab(u)
+    #     print('start openining all recruiter and data scientist...')
+    #     res = requests.get(u)
+    #     if res.status_code == 200:
+    #         soup = bs4.BeautifulSoup(res.text, 'html.parser')
+    #         linklist = [link for link in soup.find_all('a')]
+    #         openlist = []
+    #         for link in linklist:
+    #             if "q=https://www.linkedin.com/in" in link.get('href'):
+    #                 hyperlink = link.get('href').partition('=')[2]
+    #                 hyperlink = hyperlink.partition('&')[0]
+    #                 openlist.append(hyperlink)
+    #     else:
+    #         print('request failed')
 
-        for i in openlist:   
-            webbrowser.open_new_tab(i)
+
+
+        # for i in openlist:
+        #     webbrowser.open_new_tab(i)

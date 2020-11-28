@@ -1,0 +1,9 @@
+,Question,Answer,Weakness
+0,What is collaborative filtering?,"Collaborative filtering is an extremely popular technique for recommender systems today.
+It aims to predict what a particular shopper will like based on how similar customers have 
+behaved on site.
+It is done using a matrix factorization approach, where the matrix factors represent latent representations of customers and their affinity to particular products.",1
+1,What is collaborative filtering?,"Collaborative filtering is an extremely popular technique for recommender systems today.
+It aims to predict what a particular shopper will like based on how similar customers have 
+behaved on site.
+It is done using a matrix factorization approach, where the matrix factors represent latent representations of customers and their affinity to particular products.",2
