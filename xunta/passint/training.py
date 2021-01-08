@@ -1,6 +1,10 @@
 import pandas as pd
 import pprint
 import random
+import os
+import webbrowser
+from termcolor import colored
+
 
 class color:
    PURPLE = '\033[95m'
@@ -14,15 +18,23 @@ class color:
    UNDERLINE = '\033[4m'
    END = '\033[0m'
 
-if __name__ == "__main__":
-	df = pd.read_csv('C:/JospehShen/XunTa/data/train.csv', index_col=0)
+def train(chunk,company):
+	df = pd.read_excel('C:/JospehShen/XunTa/data/train.xlsx', index_col=0)
+	df = df[df['Company'].isin([company]) & df['Round'].isin(['Onsite'])]
 	questions = list(df['Question'])
 	answers = list(df['Answer'])
 	qapair = list(zip(questions,answers))
-	if len(qapair) > 7:
-		qapair = random.sample(qapair, 7)
+	if len(qapair) > chunk:
+		qapair = random.sample(qapair, chunk)
 	pp = pprint.PrettyPrinter(indent=2)
 
+	# if company == 'Wayfair':
+	# 	print('start coding challenge ...')
+	# 	os.startfile('C:/JospehShen/XunTa/coding/{}/simulationpi.py'.format(company))
+	# 	os.startfile('C:/JospehShen/XunTa/coding/{}/simulationpisol.py'.format(company))
+	# 	mianjing = 'https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=674933&ctid=230653'
+	# 	webbrowser.open_new_tab(mianjing)
+	# 	webbrowser.open_new_tab('https://leetcode.com/problems/sqrtx/')
 
 	boost = []
 	score = len(qapair)
@@ -39,23 +51,27 @@ if __name__ == "__main__":
 		if cont != 'c' and cont !='s':
 			break
 
-	print(color.BOLD + color.GREEN + 'Your score is {}'.format(round(score/len(qapair)*100,0)) + color.END)
-	print()
-	print(color.BOLD + color.RED + 'Now start debugging problems you failed to answer...' + color.END)
+	print('Your score is {}'.format(round(score/len(qapair)*100,0)))
+	print('Now start debugging problems you failed to answer...')
 
 
-	cleaned = sum([i[2] for i in boost])
+	cleaned = len(boost)
 	while cleaned != 0:
-		q, a, w = random.sample(boost,1).pop()
+		q, a, w = boost.pop()
 		pp.pprint(q)
 		print()
 		cont = input('press `c` to continue and press `s` to see solution >')
 		if cont =='c':
 			cleaned -= 1
 		if cont == 's':
+			boost.append((q,a,w))
 			pp.pprint(a)
 		if cont != 'c' and cont !='s':
 			break
 
 
-	print(color.GREEN + 'Awesome! This round of training is complete!')
+	print('Awesome! This round of training is complete!')
+
+
+if __name__ == "__main__":
+	train(14,'Wayfair')

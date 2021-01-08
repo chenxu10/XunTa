@@ -3,6 +3,32 @@ import requests
 import sys
 import bs4
 import random
+import urllib3
+
+
+def daily_job_board():
+    """Open daily job board for data scientist(24hrs) in 
+    Greater Boston, NYC and California"""
+    search_query = 'https://www.linkedin.com/jobs/search/?f_TPR=r86400&'
+    loc = [
+        "Greater Boston",
+        "New York City Metropolitan Area", 
+        "California"
+    ]
+    title = [
+        "senior data scientist",
+        "machine leanring engineer",
+        "software engineer",
+        "quantitative"
+    ]
+    urls = []
+    for l in loc:
+        for t in title:
+            query = search_query + 'keywords={}&'.format(t) + 'location={}'.format(l)
+            urls.append(query)
+    
+    for u in urls:
+        webbrowser.open_new_tab(u)
 
 def format_loc(loc):
     if loc == "newyork":
@@ -23,36 +49,32 @@ def make_search_urls(loc, companies):
             query = loc + ' ' + newc + ' ' + s
             url = "https://www.google.com/search?q={}".format(query)
             urls.append(url)
+   
+    for u in urls:
+        webbrowser.open_new_tab(u)
+        print('start openining all recruiter and data scientist...')
+        res = requests.get(u)
+        if res.status_code == 200:
+            soup = bs4.BeautifulSoup(res.text, 'html.parser')
+            linklist = [link for link in soup.find_all('a')]
+            openlist = []
+            for link in linklist:
+                if "q=https://www.linkedin.com/in" in link.get('href'):
+                    hyperlink = link.get('href').partition('=')[2]
+                    hyperlink = hyperlink.partition('&')[0]
+                    openlist.append(hyperlink)
+        else:
+            print('request failed') 
+
+    for i in openlist:
+        webbrowser.open_new_tab(i)
+    
     return urls
 
-def find_referral(c):
-	s = '("tsinghua" OR "cornell" OR "fudan") "data scientist" site:linkedin.com'
-	newc = '"' + c + '"'
-	sterm = newc + " " + s
-	url = "https://www.google.com/search?q={}".format(sterm)
-	webbrowser.open_new_tab(url)
+
+# TODO(Unknown: A list of jobs in specific area in boston Known:linkedin search page Condition:Title, Company)
 
 
 if __name__ == "__main__":
-	find_referral(sys.argv[1])
-    # urls = make_search_urls(sys.argv[1:][0], sys.argv[2:])
-    # for u in urls:
-    #     webbrowser.open_new_tab(u)
-    #     print('start openining all recruiter and data scientist...')
-    #     res = requests.get(u)
-    #     if res.status_code == 200:
-    #         soup = bs4.BeautifulSoup(res.text, 'html.parser')
-    #         linklist = [link for link in soup.find_all('a')]
-    #         openlist = []
-    #         for link in linklist:
-    #             if "q=https://www.linkedin.com/in" in link.get('href'):
-    #                 hyperlink = link.get('href').partition('=')[2]
-    #                 hyperlink = hyperlink.partition('&')[0]
-    #                 openlist.append(hyperlink)
-    #     else:
-    #         print('request failed')
-
-
-
-        # for i in openlist:
-        #     webbrowser.open_new_tab(i)
+    daily_job_board()
+    #boston_nyc_senior_ds()
