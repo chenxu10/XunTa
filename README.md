@@ -9,7 +9,7 @@ This is a tool helping you to find mentors, friends, colleagues in your interest
 
 
 ## Leetcode
-- [Leetcode Repo]https://docs.google.com/spreadsheets/d/1G9oBjZbXwO-twsrkq6gSFWQELTPSuq6b8NH6FvltGJk/edit?usp=sharing)
+- [Leetcode Repo](https://docs.google.com/spreadsheets/d/1G9oBjZbXwO-twsrkq6gSFWQELTPSuq6b8NH6FvltGJk/edit?usp=sharing)
 
 ## OOD design
 
