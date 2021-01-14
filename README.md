@@ -7,7 +7,11 @@ This is a tool helping you to find mentors, friends, colleagues in your interest
 - [ ] Automate email finder
 - [ ] Automate formatting emails
 
-### 课程开发
+## OOD design
+
+- [OOD design](https://github.com/chenxu10/XunTa/blob/dev/data/train.xlsx)
+
+## 课程开发
 
 - [ ] 让家人开通国内手机号寄一张卡过来
 - [ ] Data2Profit——美国数据科学职场求职与跳槽课程

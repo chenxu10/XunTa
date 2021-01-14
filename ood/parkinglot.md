@@ -1,0 +1,9 @@
+
+
+```python
+class Admin(Account):
+
+```
+
+
+
