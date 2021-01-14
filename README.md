@@ -9,7 +9,7 @@ This is a tool helping you to find mentors, friends, colleagues in your interest
 
 ## OOD design
 
-- [OOD design](https://github.com/chenxu10/XunTa/blob/dev/data/train.xlsx)
+- [OOD design](https://github.com/chenxu10/XunTa/blob/dev/ood/parkinglot.md)
 
 ## 课程开发
 
